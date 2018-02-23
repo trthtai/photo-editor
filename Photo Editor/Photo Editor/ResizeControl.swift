@@ -38,6 +38,7 @@ class ResizeControl: UIView {
         addGestureRecognizer(gestureRecognizer)
     }
     
+    @objc
     func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if !enabled {
             return

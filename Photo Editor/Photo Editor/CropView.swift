@@ -276,6 +276,7 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
         return image.rotatedImageWithTransform(rotation, croppedToRect: zoomedCropRect())
     }
     
+    @objc
     func handleRotation(_ gestureRecognizer: UIRotationGestureRecognizer) {
         if let imageView = imageView {
             let rotation = gestureRecognizer.rotation

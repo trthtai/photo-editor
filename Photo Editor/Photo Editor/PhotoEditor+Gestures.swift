@@ -17,6 +17,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
      UIPanGestureRecognizer - Moving Objects
      Selecting transparent parts of the imageview won't move the object
      */
+    @objc
     func panGesture(_ recognizer: UIPanGestureRecognizer) {
         if let view = recognizer.view {
             if view is UIImageView {
@@ -44,6 +45,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
      UIPinchGestureRecognizer - Pinching Objects
      If it's a UITextView will make the font bigger so it doen't look pixlated
      */
+    @objc
     func pinchGesture(_ recognizer: UIPinchGestureRecognizer) {
         if let view = recognizer.view {
             if view is UITextView {
@@ -75,6 +77,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
     /**
      UIRotationGestureRecognizer - Rotating Objects
      */
+    @objc
     func rotationGesture(_ recognizer: UIRotationGestureRecognizer) {
         if let view = recognizer.view {
             view.transform = view.transform.rotated(by: recognizer.rotation)
@@ -87,6 +90,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
      Will make scale scale Effect
      Selecting transparent parts of the imageview won't move the object
      */
+    @objc
     func tapGesture(_ recognizer: UITapGestureRecognizer) {
         if let view = recognizer.view {
             if view is UIImageView {
@@ -120,6 +124,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
         return false
     }
     
+    @objc
     func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             if !stickersVCIsVisible {

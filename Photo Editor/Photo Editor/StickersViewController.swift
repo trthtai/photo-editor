@@ -135,6 +135,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
     
     //MARK: Pan Gesture
     
+    @objc
     func panGesture(_ recognizer: UIPanGestureRecognizer) {
         
         let translation = recognizer.translation(in: self.view)

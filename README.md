@@ -95,7 +95,7 @@ func canceledEditing() {
 ## Credits
 
 Written by [Mohamed Hamed](https://github.com/M-Hamed).
-
+Icons downloaded from [Icon8](https://icons8.com)
 Initially sponsored by [![Eventtus](http://assets.eventtus.com/logos/eventtus/standard.png)](http://eventtus.com)
 
 ## License

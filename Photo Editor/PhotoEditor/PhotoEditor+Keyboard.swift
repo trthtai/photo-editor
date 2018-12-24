@@ -15,6 +15,7 @@ extension PhotoEditorViewController {
     func keyboardDidShow(notification: NSNotification) {
         if mode == .labelInput {
             doneButton.isHidden = false
+            undoButton.isHidden = true
             colorPickerView.isHidden = false
             hideToolbar(hide: true)
         }
@@ -24,6 +25,7 @@ extension PhotoEditorViewController {
     func keyboardWillHide(notification: NSNotification) {
         mode = .labelPositioning
         doneButton.isHidden = true
+        undoButton.isHidden = true
         hideToolbar(hide: false)
     }
 

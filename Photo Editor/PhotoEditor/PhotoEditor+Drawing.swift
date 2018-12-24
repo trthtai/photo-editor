@@ -14,6 +14,12 @@ extension PhotoEditorViewController {
                                       with event: UIEvent?) {
         swiped = false
         initialImage = canvasImageView.image
+
+        let shapeImageView = UIImageView(frame: imageView.frame)
+        addGestures(view: shapeImageView)
+        canvasImageView.addSubview(shapeImageView)
+        shapeLayers.append(shapeImageView)
+
         if let touch = touches.first {
             firstPoint = touch.location(in: self.canvasImageView)
             lastPoint = firstPoint
@@ -34,8 +40,8 @@ extension PhotoEditorViewController {
         case .shapeDrawing:
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
-                if let shape = shape {
-                    shape.draw(in: canvasImageView, from: firstPoint, via: lastPoint, to: currentPoint, using: drawColor, backingTo: initialImage)
+                if let shape = selectedShape {
+                    shape.draw(in: shapeLayers.last!, from: firstPoint, via: lastPoint, to: currentPoint, using: drawColor, backingTo: initialImage)
                 }
 
                 lastPoint = currentPoint
@@ -48,6 +54,12 @@ extension PhotoEditorViewController {
 
     override public func touchesEnded(_ touches: Set<UITouch>,
                                       with event: UIEvent?) {
+        if let lastLayer = shapeLayers.last {
+            if lastLayer.image == nil {
+                lastLayer.removeFromSuperview()
+            }
+        }
+
         switch mode {
         case .freeDrawing:
             if !swiped {
@@ -56,11 +68,12 @@ extension PhotoEditorViewController {
             }
         case .shapeDrawing:
             if !swiped {
-                if let shape = shape {
+                if let shape = selectedShape {
                     shape.draw(in: canvasImageView, from: firstPoint, via: lastPoint, to: nil, using: drawColor, backingTo: initialImage)
                 }
             }
-        default:
+            mode = .shapePositioning
+        case .labelInput, .labelPositioning, .normal, .shapePositioning:
             break
         }
     }

@@ -24,7 +24,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         colorView.layer.cornerRadius = colorView.frame.width / 2
         colorView.clipsToBounds = true
-        colorView.layer.borderWidth = 1.0
+        colorView.layer.borderWidth = 3.0
         colorView.layer.borderColor = UIColor.white.cgColor
     }
 
@@ -41,8 +41,10 @@ class ColorCollectionViewCell: UICollectionViewCell {
                                     self.colorView.transform  = previouTransform
                                 }
                 })
+
+                colorView.layer.borderColor = tintColor.cgColor
             } else {
-                // animate deselection
+                colorView.layer.borderColor = UIColor.white.cgColor
             }
         }
     }

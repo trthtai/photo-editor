@@ -35,7 +35,6 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PhotoEditorViewController.tapGesture))
         view.addGestureRecognizer(tapGesture)
-
     }
 
     /**

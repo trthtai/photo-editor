@@ -41,6 +41,10 @@ extension PhotoEditorViewController {
         mode = .shapeDrawing
     }
 
+    @IBAction func undoButtonDidTouchInside(_ sender: Any) {
+        shapeLayers.last?.removeFromSuperview()
+    }
+
     @IBAction func textButtonDidTouchInside(_ sender: Any) {
         mode = .labelInput
         let textView = UITextView(frame: CGRect(x: 0, y: canvasImageView.center.y,

@@ -23,6 +23,7 @@ enum PhotoEditorMode {
     case normal
     case freeDrawing
     case shapeDrawing
+    case shapePositioning
     case labelInput
     case labelPositioning
 }
@@ -44,9 +45,12 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var bottomGradient: UIView!
 
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var deleteView: UIView!
     @IBOutlet weak var colorsCollectionView: UICollectionView!
+    @IBOutlet weak var shapeCollectionView: UICollectionView!
     @IBOutlet weak var colorPickerView: UIView!
+    @IBOutlet weak var shapePickerView: UIView!
     @IBOutlet weak var shapeToolsPickerView: UIView!
     @IBOutlet weak var colorPickerViewBottomConstraint: NSLayoutConstraint!
 
@@ -68,16 +72,19 @@ public final class PhotoEditorViewController: UIViewController {
      Array of Colors that will show while drawing or typing
      */
     public var colors: [UIColor] = []
+    public var shapes: [PhotoEditorShape] = []
+    var shapeLayers: [UIImageView] = []
 
     public var photoEditorDelegate: PhotoEditorDelegate?
     var colorsCollectionViewDelegate: ColorsCollectionViewDelegate!
+    var shapeCollectionViewDelegate: ShapeCollectionViewDelegate!
 
     // list of controls to be hidden
     public var hiddenControls: [PhotoEditorControl] = []
 
     var drawColor: UIColor = UIColor.black
     var textColor: UIColor = UIColor.white
-    var shape: PhotoEditorShape? = .line
+    var selectedShape: PhotoEditorShape?
     var initialImage: UIImage?
     var firstPoint: CGPoint!
     var lastPoint: CGPoint!
@@ -95,25 +102,38 @@ public final class PhotoEditorViewController: UIViewController {
             case .normal:
                 view.endEditing(true)
                 doneButton.isHidden = true
+                undoButton.isHidden = true
                 colorPickerView.isHidden = true
+                shapePickerView.isHidden = true
                 canvasImageView.isUserInteractionEnabled = true
                 hideToolbar(hide: false)
 
             case .freeDrawing:
+                shapeCollectionView.deselectAllItems(animated: true)
                 canvasImageView.isUserInteractionEnabled = false
                 doneButton.isHidden = false
+                undoButton.isHidden = true
                 colorPickerView.isHidden = false
+                shapePickerView.isHidden = true
                 hideToolbar(hide: true)
 
             case .labelInput:
                 break
             case .labelPositioning:
+                shapeCollectionView.deselectAllItems(animated: true)
                 break
             case .shapeDrawing:
                 canvasImageView.isUserInteractionEnabled = false
                 doneButton.isHidden = false
+                undoButton.isHidden = false
+                shapePickerView.isHidden = false
                 colorPickerView.isHidden = false
                 hideToolbar(hide: true)
+            case .shapePositioning:
+                shapeCollectionView.deselectAllItems(animated: true)
+                selectedShape = nil
+                doneButton.isHidden = false
+                undoButton.isHidden = false
                 break
             }
         }
@@ -128,18 +148,26 @@ public final class PhotoEditorViewController: UIViewController {
         deleteView.layer.borderColor = UIColor.white.cgColor
         deleteView.clipsToBounds = true
 
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
-                                               name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardDidShow),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillChangeFrame(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
 
-        configureCollectionView()
+        configureColorCollectionView()
+        configureShapeCollectionView()
+
         hideControls()
     }
 
-    func configureCollectionView() {
+    func configureColorCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 30, height: 30)
         layout.scrollDirection = .horizontal
@@ -159,6 +187,27 @@ public final class PhotoEditorViewController: UIViewController {
             forCellWithReuseIdentifier: "ColorCollectionViewCell")
     }
 
+    func configureShapeCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 50, height: 50)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 4
+
+        shapeCollectionView.collectionViewLayout = layout
+        shapeCollectionViewDelegate = ShapeCollectionViewDelegate()
+        shapeCollectionViewDelegate.shapeDelegate = self
+        if !shapes.isEmpty {
+            shapeCollectionViewDelegate.shapes = shapes
+        }
+        shapeCollectionView.delegate = shapeCollectionViewDelegate
+        shapeCollectionView.dataSource = shapeCollectionViewDelegate
+
+        shapeCollectionView.register(
+            UINib(nibName: "ShapeCollectionViewCell", bundle: Bundle(for: ShapeCollectionViewCell.self)),
+            forCellWithReuseIdentifier: "ShapeCollectionViewCell")
+    }
+
     func setImageView(image: UIImage) {
         imageView.image = image
         let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
@@ -176,13 +225,11 @@ public final class PhotoEditorViewController: UIViewController {
 extension PhotoEditorViewController: ColorDelegate {
     func didSelectColor(color: UIColor) {
         switch mode {
-        case .freeDrawing:
+        case .freeDrawing, .shapeDrawing, .shapePositioning, .normal:
             self.drawColor = color
         case .labelInput, .labelPositioning:
             activeTextView?.textColor = color
             textColor = color
-        default:
-            break
         }
     }
 }

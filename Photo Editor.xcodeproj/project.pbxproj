@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD5259E621CE3A7F00340747 /* ShapeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD5259E521CE3A7F00340747 /* ShapeCollectionViewCell.xib */; };
+		BD5259E921CE478300340747 /* ShapeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5259E821CE478300340747 /* ShapeCollectionViewCell.swift */; };
+		BD5259EB21CE4A1200340747 /* ShapeCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5259EA21CE4A1200340747 /* ShapeCollectionViewDelegate.swift */; };
+		BD5259ED21CEADFC00340747 /* CGPoint+Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5259EC21CEADFC00340747 /* CGPoint+Math.swift */; };
 		BD8E62CD21B6280A00DB6774 /* Photo_Editor_Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8E62CB21B6280A00DB6774 /* Photo_Editor_Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD8E62D221B6282100DB6774 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565130A1EF489B4009EA38F /* ColorCollectionViewCell.swift */; };
 		BD8E62D321B6282100DB6774 /* ColorsCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0565130B1EF489B4009EA38F /* ColorsCollectionViewDelegate.swift */; };
@@ -58,6 +62,10 @@
 		059EA7281EACB8790072C0FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD49154D203FF4CF00947B45 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BD49154F203FF4D700947B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BD5259E521CE3A7F00340747 /* ShapeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShapeCollectionViewCell.xib; sourceTree = "<group>"; };
+		BD5259E821CE478300340747 /* ShapeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCollectionViewCell.swift; sourceTree = "<group>"; };
+		BD5259EA21CE4A1200340747 /* ShapeCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		BD5259EC21CEADFC00340747 /* CGPoint+Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Math.swift"; sourceTree = "<group>"; };
 		BD8E62C121B6277B00DB6774 /* PhotoEditor+Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditor+Shapes.swift"; sourceTree = "<group>"; };
 		BD8E62C921B6280A00DB6774 /* Photo_Editor_framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Photo_Editor_framework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD8E62CB21B6280A00DB6774 /* Photo_Editor_Framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Photo_Editor_Framework.h; sourceTree = "<group>"; };
@@ -96,8 +104,9 @@
 		059EA71B1EACB8790072C0FE /* Photo Editor */ = {
 			isa = PBXGroup;
 			children = (
-				BD8E62C321B6279900DB6774 /* PhotoEditor */,
 				BD5810FD21B8CBED000A38D1 /* Color */,
+				BD5259E721CE46F900340747 /* Shape */,
+				BD8E62C321B6279900DB6774 /* PhotoEditor */,
 				BD5810FC21B8CB4A000A38D1 /* Crop */,
 				BD5810FE21B8CC12000A38D1 /* Extensions */,
 				059EA7231EACB8790072C0FE /* Assets.xcassets */,
@@ -108,10 +117,19 @@
 			path = "Photo Editor";
 			sourceTree = "<group>";
 		};
+		BD5259E721CE46F900340747 /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				BD5259E521CE3A7F00340747 /* ShapeCollectionViewCell.xib */,
+				BD5259E821CE478300340747 /* ShapeCollectionViewCell.swift */,
+				BD5259EA21CE4A1200340747 /* ShapeCollectionViewDelegate.swift */,
+			);
+			path = Shape;
+			sourceTree = "<group>";
+		};
 		BD5810FC21B8CB4A000A38D1 /* Crop */ = {
 			isa = PBXGroup;
 			children = (
-				0565132B1EF489C0009EA38F /* ColorCollectionViewCell.xib */,
 				056513151EF489B4009EA38F /* CropRectView.swift */,
 				056513141EF489B4009EA38F /* CropView.swift */,
 				056513161EF489B4009EA38F /* CropViewController.swift */,
@@ -123,6 +141,7 @@
 		BD5810FD21B8CBED000A38D1 /* Color */ = {
 			isa = PBXGroup;
 			children = (
+				0565132B1EF489C0009EA38F /* ColorCollectionViewCell.xib */,
 				0565130A1EF489B4009EA38F /* ColorCollectionViewCell.swift */,
 				0565130B1EF489B4009EA38F /* ColorsCollectionViewDelegate.swift */,
 				056513131EF489B4009EA38F /* GradientView.swift */,
@@ -137,6 +156,7 @@
 				0565130F1EF489B4009EA38F /* UIImage+Size.swift */,
 				056513101EF489B4009EA38F /* UIImageView+Alpha.swift */,
 				056513111EF489B4009EA38F /* UIView+Image.swift */,
+				BD5259EC21CEADFC00340747 /* CGPoint+Math.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -241,6 +261,7 @@
 				BD8E62E221B6283E00DB6774 /* ColorCollectionViewCell.xib in Resources */,
 				BD8E62E821B628BC00DB6774 /* Localizable.strings in Resources */,
 				BD8E62E621B6284400DB6774 /* Assets.xcassets in Resources */,
+				BD5259E621CE3A7F00340747 /* ShapeCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,8 +274,11 @@
 			files = (
 				BD8E62E021B6282100DB6774 /* ResizeControl.swift in Sources */,
 				BD8E62EA21B628C200DB6774 /* PhotoEditor+Gestures.swift in Sources */,
+				BD5259EB21CE4A1200340747 /* ShapeCollectionViewDelegate.swift in Sources */,
 				BD8E62E921B628C200DB6774 /* PhotoEditorViewController.swift in Sources */,
 				BD8E62EB21B628C200DB6774 /* PhotoEditor+Drawing.swift in Sources */,
+				BD5259E921CE478300340747 /* ShapeCollectionViewCell.swift in Sources */,
+				BD5259ED21CEADFC00340747 /* CGPoint+Math.swift in Sources */,
 				BD8E62DD21B6282100DB6774 /* CropRectView.swift in Sources */,
 				BD8E62D921B6282100DB6774 /* UIView+Image.swift in Sources */,
 				BD8E62DB21B6282100DB6774 /* GradientView.swift in Sources */,

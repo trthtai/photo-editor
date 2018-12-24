@@ -30,10 +30,6 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
                   UIColor.brown,
                   UIColor.magenta]
 
-    override init() {
-        super.init()
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return colors.count
     }
@@ -51,5 +47,11 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         cell.colorView.backgroundColor = colors[indexPath.item]
         return cell
     }
+}
 
+extension UICollectionView {
+    func deselectAllItems(animated: Bool) {
+        guard let selectedItems = indexPathsForSelectedItems else { return }
+        for indexPath in selectedItems { deselectItem(at: indexPath, animated: animated) }
+    }
 }

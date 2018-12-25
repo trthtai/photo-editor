@@ -15,7 +15,6 @@ class ShapeCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColle
     /// Shapes can be customized before init of view controller
     var shapes: [PhotoEditorShape] = [
         .line,
-        .curvedLine,
         .rectangle,
         .circle,
         .ellipsis,

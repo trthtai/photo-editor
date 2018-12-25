@@ -42,7 +42,7 @@ extension PhotoEditorViewController {
     }
 
     @IBAction func undoButtonDidTouchInside(_ sender: Any) {
-        shapeLayers.last?.removeFromSuperview()
+        canvasImageView.subviews.last?.removeFromSuperview()
     }
 
     @IBAction func textButtonDidTouchInside(_ sender: Any) {

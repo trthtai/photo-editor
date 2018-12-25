@@ -12,21 +12,11 @@ import UIKit
 extension PhotoEditorViewController {
 
     @objc
-    func keyboardDidShow(notification: NSNotification) {
-        if mode == .labelInput {
-            doneButton.isHidden = false
-            undoButton.isHidden = true
-            colorPickerView.isHidden = false
-            hideToolbar(hide: true)
-        }
-    }
+    func keyboardDidShow(notification: NSNotification) {}
 
     @objc
     func keyboardWillHide(notification: NSNotification) {
         mode = .labelPositioning
-        doneButton.isHidden = true
-        undoButton.isHidden = true
-        hideToolbar(hide: false)
     }
 
     @objc

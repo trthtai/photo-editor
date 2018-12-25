@@ -107,21 +107,34 @@ public final class PhotoEditorViewController: UIViewController {
                 shapePickerView.isHidden = true
                 canvasImageView.isUserInteractionEnabled = true
                 hideToolbar(hide: false)
+                deleteView.isHidden = true
 
             case .freeDrawing:
-                shapeCollectionView.deselectAllItems(animated: true)
                 canvasImageView.isUserInteractionEnabled = false
                 doneButton.isHidden = false
                 undoButton.isHidden = true
                 colorPickerView.isHidden = false
                 shapePickerView.isHidden = true
                 hideToolbar(hide: true)
+                deleteView.isHidden = true
 
             case .labelInput:
-                break
+                doneButton.isHidden = false
+                undoButton.isHidden = true
+                colorPickerView.isHidden = false
+                shapePickerView.isHidden = true
+                hideToolbar(hide: true)
+                deleteView.isHidden = true
+
             case .labelPositioning:
-                shapeCollectionView.deselectAllItems(animated: true)
-                break
+                canvasImageView.isUserInteractionEnabled = true
+                doneButton.isHidden = true
+                undoButton.isHidden = true
+                colorPickerView.isHidden = true
+                shapePickerView.isHidden = true
+                hideToolbar(hide: false)
+                deleteView.isHidden = false
+
             case .shapeDrawing:
                 canvasImageView.isUserInteractionEnabled = false
                 doneButton.isHidden = false
@@ -129,12 +142,18 @@ public final class PhotoEditorViewController: UIViewController {
                 shapePickerView.isHidden = false
                 colorPickerView.isHidden = false
                 hideToolbar(hide: true)
+                deleteView.isHidden = true
+                
             case .shapePositioning:
+                canvasImageView.isUserInteractionEnabled = true
                 shapeCollectionView.deselectAllItems(animated: true)
                 selectedShape = nil
-                doneButton.isHidden = false
-                undoButton.isHidden = false
-                break
+                doneButton.isHidden = true
+                undoButton.isHidden = true
+                shapePickerView.isHidden = true
+                colorPickerView.isHidden = true
+                hideToolbar(hide: false)
+                deleteView.isHidden = false
             }
         }
     }

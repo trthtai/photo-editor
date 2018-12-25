@@ -15,10 +15,14 @@ extension PhotoEditorViewController {
         swiped = false
         initialImage = canvasImageView.image
 
-        let shapeImageView = UIImageView(frame: imageView.frame)
-        addGestures(view: shapeImageView)
-        canvasImageView.addSubview(shapeImageView)
-        shapeLayers.append(shapeImageView)
+        switch mode {
+        case .shapeDrawing:
+            let shapeImageView = UIImageView(frame: imageView.frame)
+            addGestures(view: shapeImageView)
+            canvasImageView.addSubview(shapeImageView)
+        default:
+            break
+        }
 
         if let touch = touches.first {
             firstPoint = touch.location(in: self.canvasImageView)
@@ -40,8 +44,8 @@ extension PhotoEditorViewController {
         case .shapeDrawing:
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
-                if let shape = selectedShape {
-                    shape.draw(in: shapeLayers.last!, from: firstPoint, via: lastPoint, to: currentPoint, using: drawColor, backingTo: initialImage)
+                if let shape = selectedShape, let lastLayer = canvasImageView.subviews.last as? UIImageView {
+                    shape.draw(in: lastLayer, from: firstPoint, via: lastPoint, to: currentPoint, using: drawColor, backingTo: initialImage)
                 }
 
                 lastPoint = currentPoint
@@ -72,7 +76,6 @@ extension PhotoEditorViewController {
                     shape.draw(in: canvasImageView, from: firstPoint, via: lastPoint, to: nil, using: drawColor, backingTo: initialImage)
                 }
             }
-            mode = .shapePositioning
         case .labelInput, .labelPositioning, .normal, .shapePositioning:
             break
         }

@@ -93,6 +93,8 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
             } else {
                 view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
             }
+
+            mode = view is UIImageView ? .shapePositioning : .labelPositioning
             recognizer.scale = 1
         }
     }
@@ -105,6 +107,7 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
         if let view = recognizer.view {
             view.transform = view.transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
+            mode = view is UIImageView ? .shapePositioning : .labelPositioning
         }
     }
 
@@ -182,8 +185,8 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
 
     func moveView(view: UIView, recognizer: UIPanGestureRecognizer) {
 
-        hideToolbar(hide: true)
-        deleteView.isHidden = false
+        let prevMode = mode
+        mode = view is UIImageView ? .shapePositioning : .labelPositioning
 
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: self.view)
@@ -219,12 +222,12 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
         if recognizer.state == .ended {
             imageViewToPan = nil
             lastPanPoint = nil
-            hideToolbar(hide: false)
-            deleteView.isHidden = true
+            mode = prevMode
             let point = recognizer.location(in: self.view)
 
             if deleteView.frame.contains(point) { // Delete the view
                 view.removeFromSuperview()
+                mode = .normal
                 if #available(iOS 10.0, *) {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)

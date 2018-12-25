@@ -41,6 +41,7 @@ extension PhotoEditorViewController: UITextViewDelegate {
             else {
                 return
         }
+        mode = .labelPositioning
         activeTextView = nil
         textView.font = self.lastTextViewFont!
         UIView.animate(withDuration: 0.3,

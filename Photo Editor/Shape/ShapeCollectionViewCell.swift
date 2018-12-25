@@ -18,17 +18,13 @@ class ShapeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var shapeView: UIView!
     @IBOutlet weak var shapeImageView: UIImageView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
         shapeView.clipsToBounds = true
         shapeView.layer.borderWidth = 3.0
         shapeView.layer.cornerRadius = shapeView.frame.width / 5
-        shapeImageView.layer.cornerRadius = shapeView.frame.width / 5
-        shapeImageView.backgroundColor = backgroundColor
+        shapeImageView.backgroundColor = UIColor.clear
+        shapeView.backgroundColor = UIColor.white
     }
 
     override var isSelected: Bool {
@@ -47,9 +43,9 @@ class ShapeCollectionViewCell: UICollectionViewCell {
                     }
                 )
 
-                shapeImageView.backgroundColor = tintColor
+                shapeView.backgroundColor = tintColor
             } else {
-                shapeImageView.backgroundColor = backgroundColor
+                shapeView.backgroundColor = UIColor.white
             }
         }
     }

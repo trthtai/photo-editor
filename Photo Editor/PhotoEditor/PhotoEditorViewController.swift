@@ -127,6 +127,7 @@ public final class PhotoEditorViewController: UIViewController {
                 deleteView.isHidden = true
 
             case .labelPositioning:
+                view.endEditing(true)
                 canvasImageView.isUserInteractionEnabled = true
                 doneButton.isHidden = true
                 undoButton.isHidden = true

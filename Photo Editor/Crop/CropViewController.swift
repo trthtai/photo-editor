@@ -153,6 +153,7 @@ open class CropViewController: UIViewController {
     @objc
     func constrain(_ sender: UIBarButtonItem) {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.popoverPresentationController?.barButtonItem = sender
         let original = UIAlertAction(
             title: NSLocalizedString("Original", bundle: Bundle(for: CropViewController.self), comment: "Alert action button title"),
             style: .default

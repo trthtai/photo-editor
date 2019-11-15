@@ -1,0 +1,19 @@
+{
+  "Mac" : [
+
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "02e26e74a291fedfe3a9171d14d402dcc6c2b20f",
+  "iOS" : [
+    {
+      "name" : "Photo_Editor_framework",
+      "hash" : "65636faa230dbf103c5819bd8830c1870ddac1eb7de3c92252e335a4f2bd801d",
+      "swiftToolchainVersion" : "5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)"
+    }
+  ]
+}

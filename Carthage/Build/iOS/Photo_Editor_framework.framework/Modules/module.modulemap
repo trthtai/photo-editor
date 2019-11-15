@@ -1,0 +1,11 @@
+framework module Photo_Editor_framework {
+  umbrella header "Photo_Editor_framework.h"
+
+  export *
+  module * { export * }
+}
+
+module Photo_Editor_framework.Swift {
+    header "Photo_Editor_framework-Swift.h"
+    requires objc
+}
